@@ -3,12 +3,10 @@
     "sysinfo" :   { 
       "name"       : "sysinfo",
       "description": "Info systeme",
-      "time"       : "0 */5 * * * *",
+      "time"       : "0 */2 * * * *",
 	  "cpumaxi"    : "80",
-	  "memmaxi"    : "80",
-	  "dossier"    : "Sarah",
-	  "disk"       : "C"
-	 }
+	  "memmaxi"    : "80"
+	  }
   },
   
   "modules" : { 
@@ -16,9 +14,7 @@
       "description": "Info systeme",
       "version"    : "1.0",
 	  "cpumaxi"    : "80",
-	  "memmaxi"    : "80",
-	  "dossier"    : "Sarah",
-	  "disk"       : "C"
+	  "memmaxi"    : "80"
 	  }
   }
 }

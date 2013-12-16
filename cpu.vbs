@@ -1,12 +1,11 @@
 On Error Resume Next
 Set fso=WScript.CreateObject("Scripting.FileSystemObject")
 strComputer = "."
-Set objWMIService = GetObject("winmgmts:" _
-    & "{impersonationLevel=impersonate}!\\" & strComputer & "\root\cimv2")
+Set objWMIService = GetObject("winmgmts:" & "{impersonationLevel=impersonate}!\\" & strComputer & "\root\cimv2")
 
 Set colItems = objWMIService.ExecQuery("Select * from Win32_Processor",,48)
-dim cpuchare,cputemp
-cpuchare =0
+dim cpucharge,cputemp, namecpu
+cpucharge =0
 cputemp  =0
 
 For Each objItem in colItems
@@ -25,10 +24,11 @@ For Each objItem in colItems
     mesg=mesg & "Level: " & objItem.Level & vbCrLf
 	'charge CPU
     mesg=mesg & "Load Percentage: " & objItem.LoadPercentage & vbCrLf
-	cpuchare = objItem.LoadPercentage
+	cpucharge = objItem.LoadPercentage
     mesg=mesg & "Manufacturer: " & objItem.Manufacturer & vbCrLf
     mesg=mesg & "Maximum Clock Speed: " & objItem.MaxClockSpeed & vbCrLf
     mesg=mesg & "Name: " & objItem.Name & vbCrLf
+	namecpu = objItem.Name
     mesg=mesg & "PNP Device ID: " & objItem.PNPDeviceID & vbCrLf
     mesg=mesg & "Processor ID: " & objItem.ProcessorId & vbCrLf
     mesg=mesg & "Processor Type: " & objItem.ProcessorType & vbCrLf
@@ -45,13 +45,21 @@ For Each objItem in colItems
 	cputemp = CurCelTemp
 		
 Next
+'====== debug pour la température retire le ' de la ligne suivante 
+'wscript.echo mesg 
+'=================================================
  ' utilisation cpu   
   fichier="cpus.txt"
   Set ficcmd = fso.CreateTextFile(fichier)
-		ficcmd.writeline cpuchare
+		ficcmd.writeline cpucharge
 		ficcmd.close
 '-----------------------------------------------------------
    fichier="cput.txt"
   Set ficcmd = fso.CreateTextFile(fichier)
 		ficcmd.writeline cputemp
 		ficcmd.close
+'------------------------------------------------------------
+  fichier="cpun.txt"
+  Set ficcmd = fso.CreateTextFile(fichier)
+		ficcmd.writeline namecpu
+		ficcmd.close		

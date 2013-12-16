@@ -7,10 +7,12 @@
     <one-of>
 	  <item>Mémoire utilisé    <tag>out.action.key="MEM";</tag></item>
 	  <item>Escpace Libre      <tag>out.action.key="FREE";</tag></item>
+	  <item>Escpace Disponible <tag>out.action.key="FREE";</tag></item>
 	  <item>Nombre de service  <tag>out.action.key="SRV";</tag></item>
 	  <item>Total Disque       <tag>out.action.key="DD";</tag></item>
 	  <item>Charge CPU  	   <tag>out.action.key="CPU";</tag></item>
-	  <item>Température CPU     <tag>out.action.key="TCPU";</tag></item>
+	  <item>Température CPU    <tag>out.action.key="TCPU";</tag></item>
+	  <item>Nom CPU            <tag>out.action.key="NOM";</tag></item>
 	  
 	</one-of>
     <tag>out.action._attributes.uri="http://127.0.0.1:8080/sarah/sysinfo";</tag>

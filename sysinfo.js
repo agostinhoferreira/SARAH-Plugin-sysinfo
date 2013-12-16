@@ -2,37 +2,37 @@
 
 var exec = require('child_process').exec;
 var fs = require("fs");
+var urlfile = __dirname+'\\';
 // ------------------------------------------
 //  CRON
 // ------------------------------------------
 exports.cron = function(callback, task , SARAH ){
-  if (!task.dossier){
-    console.log("cron :sysinfo Pas de dossier");
+  if (!task.cpumaxi){
+    console.log("cron :sysinfo Pas de limite CPU");
     return;
   }
-   if (!task.disk){
-    console.log("cron :sysinfo Pas de disque");
+   if (!task.memmaxi){
+    console.log("cron :sysinfo Pas de limite Mémoire");
     return;
   }
-  // ===============================================================================================
-  var urlfile = task.disk+":\\"+task.dossier+"\\plugins\\sysinfo\\";   
   // ===============================================================================================
   // LECTURE DU FICHIER ATTENDRE 1 MINUTE AVANT DE LANCER LA DETECTION
+ var fichier_lect
  setTimeout(function(){
     // LECTURE CPU
-   	var resulat = readfile(urlfile+'cpus.txt');
-	if (resulat > task.cpumaxi ){
+   	 fichier_lect = readfile(urlfile+'cpus.txt');
+	if (fichier_lect > task.cpumaxi ){
 			SARAH.speak("Surcharge CPU a "+resulat);
 			}
 	// LECTURE MEMOIRE
-		var resulat = readfile(urlfile+'mem.txt');
-	if (resulat > task.memmaxi ){
+	 fichier_lect = readfile(urlfile+'mem.txt');
+	if (fichier_lect > task.memmaxi ){
 			SARAH.speak("Mémoire limit a "+resulat);
 			}
 	  //  
 },3000);
 	// =========================================================================	
-	var fichier_lect  = urlfile+"cpu.vbs";
+	 fichier_lect  = urlfile+"cpu.vbs";
     var child = exec(fichier_lect, function (error, stdout, stderr) {
 			if (error !== null) {
 			   		console.log('cpu:' +error);
@@ -56,59 +56,64 @@ exports.cron = function(callback, task , SARAH ){
 // FIN CRON
 // -------------------------------------------
    console.log('cpu: info');
-   }
+    }
 
 exports.action = function(data, callback, config, SARAH){
   // config module
   config = config.modules.sysinfo;
  // ==================================================================================================================== 		
- var urlfile = config.disk+":\\"+config.dossier+"\\plugins\\sysinfo\\"; 
-  
+ var retour_file
   switch(data.key)
   		{
 		case "MEM":
 		// Mémoire utilisé
-		var retour_file = readfile(urlfile+"mem.txt");
-				SARAH.speak(" le poucentage et de "+retour_file);
+		retour_file = readfile(urlfile+"mem.txt");
+				SARAH.speak(" le poucentage et de "+retour_file+' de mémoire utilisé.' );
 				
 		break;
 		
 		case "FREE":
 		// Mémoire utilisé
-		var retour_file = readfile(urlfile+"diskl.txt");
-				SARAH.speak(" Escpace disponible et de "+retour_file);
+		retour_file = readfile(urlfile+"diskl.txt");
+				SARAH.speak(" Escpace Total disponible sur les disque dur et de "+retour_file+".");
 				
 		break;
 		
 		case "DD":
 		// Mémoire utilisé
-		var retour_file = readfile(urlfile+"diskt.txt");
-				SARAH.speak(" Escpace Total du disque et de "+retour_file);
+		retour_file = readfile(urlfile+"diskt.txt");
+				SARAH.speak(" Escpace Total des disques dur et de "+retour_file+".");
 				
 		break;
 		
 		case "CPU":
 		// Mémoire utilisé
-		var retour_file = readfile(urlfile+"cpus.txt");
-				SARAH.speak(" La charge CPU et de "+retour_file);
+		retour_file = readfile(urlfile+"cpus.txt");
+				SARAH.speak(" La charge CPU et de "+retour_file+".");
 				
 		break;
 		
 		case "TCPU":
 		// Mémoire utilisé
-		var retour_file = readfile(urlfile+"cput.txt");
+		retour_file = readfile(urlfile+"cput.txt");
 		console.log('cpu:' +retour_etat+'<');
 				if (!retour_file){
 				             SARAH.speak(" La Température CPU et de "+retour_file);
 									} else {
-									        SARAH.speak("Désolé cette information n'est pas disponible ");
+									        SARAH.speak("Désolé cette information n'est pas disponible sur ma machine");
 											}
 		break;
 		
 		case "SRV":
 		// Mémoire utilisé
-		var retour_file = readfile(urlfile+"servicenb.txt");
-				SARAH.speak("Il y a "+retour_file+" programme et service démarrer");
+		retour_file = readfile(urlfile+"servicenb.txt");
+				SARAH.speak("Il y a "+retour_file+", programme et service démarrer");
+		break;
+		
+		case "NOM":
+		// nom du cpu
+		retour_file = readfile(urlfile+"cpun.txt");
+				SARAH.speak("le nom de mon CPU et "+retour_file+".");
 		break;
 		
 		}
