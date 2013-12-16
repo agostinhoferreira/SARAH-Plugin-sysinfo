@@ -1,0 +1,18 @@
+<grammar version="1.0" xml:lang="fr-FR" mode="voice" root="rulesysinfo" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
+  <rule id="rulesysinfo" scope="public">
+    <example>Sarah sysinfo</example>
+    <tag>out.action=new Object(); </tag>
+    
+    <item>SARAH</item>
+    <one-of>
+	  <item>Mémoire utilisé    <tag>out.action.key="MEM";</tag></item>
+	  <item>Escpace Libre      <tag>out.action.key="FREE";</tag></item>
+	  <item>Nombre de service  <tag>out.action.key="SRV";</tag></item>
+	  <item>Total Disque       <tag>out.action.key="DD";</tag></item>
+	  <item>Charge CPU  	   <tag>out.action.key="CPU";</tag></item>
+	  <item>Température CPU     <tag>out.action.key="TCPU";</tag></item>
+	  
+	</one-of>
+    <tag>out.action._attributes.uri="http://127.0.0.1:8080/sarah/sysinfo";</tag>
+  </rule> 
+</grammar>

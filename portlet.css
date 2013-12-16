@@ -1,0 +1,10 @@
+
+.plugin-gridster.sysinfo .front {
+  background: #FFFFFF url('image/sysinfo.png') center 10px;
+  background-size:   140px 140px;
+  background-repeat: no-repeat;
+}
+
+.plugin-gridster.sysinfo .back {
+  background: #FFFFFF;
+}

@@ -1,0 +1,24 @@
+{
+  "cron" : {
+    "sysinfo" :   { 
+      "name"       : "sysinfo",
+      "description": "Info systeme",
+      "time"       : "0 */5 * * * *",
+	  "cpumaxi"    : "80",
+	  "memmaxi"    : "80",
+	  "dossier"    : "Sarah",
+	  "disk"       : "C"
+	 }
+  },
+  
+  "modules" : { 
+    "sysinfo" :   {
+      "description": "Info systeme",
+      "version"    : "1.0",
+	  "cpumaxi"    : "80",
+	  "memmaxi"    : "80",
+	  "dossier"    : "Sarah",
+	  "disk"       : "C"
+	  }
+  }
+}
