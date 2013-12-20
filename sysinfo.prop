@@ -13,6 +13,7 @@
     "sysinfo" :   {
       "description": "Info systeme",
       "version"    : "1.0",
+	  "time"       : "0 */2 * * * *",
 	  "cpumaxi"    : "80",
 	  "memmaxi"    : "80"
 	  }

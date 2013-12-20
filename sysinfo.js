@@ -1,11 +1,17 @@
-// Plugin sysinfo
-
+//==================================================================================================
+// Plugin  :sysinfo
+// Fichier : sysinfo.js
+// Auteur  :Ferreira Agostinho
+// Version :1.02 base
+// Version :1.03 fichier .json
+//==================================================================================================
 var exec = require('child_process').exec;
 var fs = require("fs");
 var urlfile = __dirname+'\\';
 // ------------------------------------------
-//  CRON
+// PLUGIN CRON
 // ------------------------------------------
+//**********************************************************************************************************************
 exports.cron = function(callback, task , SARAH ){
   if (!task.cpumaxi){
     console.log("cron :sysinfo Pas de limite CPU");
@@ -15,112 +21,165 @@ exports.cron = function(callback, task , SARAH ){
     console.log("cron :sysinfo Pas de limite Mémoire");
     return;
   }
-  // ===============================================================================================
-  // LECTURE DU FICHIER ATTENDRE 1 MINUTE AVANT DE LANCER LA DETECTION
- var fichier_lect
- setTimeout(function(){
-    // LECTURE CPU
-   	 fichier_lect = readfile(urlfile+'cpus.txt');
-	if (fichier_lect > task.cpumaxi ){
-			SARAH.speak("Surcharge CPU a "+resulat);
-			}
+  // ==============================================================
+  // LECTURE DU FICHIER ATTENDRE 3 SECONDES AVANT DE LANCER 
+  setTimeout(function(){
+    var fichier_lect
+	// LECTURE CPU 
+	  fichier_lect = readfile(urlfile+"cpu.json");
+		var info_cpu = JSON.parse(fichier_lect);
+		// lecture charge CPU
+	var lecture_cpu = info_cpu.cpu.LoadPercentage	
+				if ( lecture_cpu > task.cpumaxi ) {
+												SARAH.speak(" Surcharge de mon CPU  ");
+												}
+		// lecture etat ventilo
+				 if (info_cpu.cpu.Ventilateur !== "OK") {
+				                                SARAH.speak(" j'ai un ventilateur en dérangement. ");
+												}
+				
 	// LECTURE MEMOIRE
-	 fichier_lect = readfile(urlfile+'mem.txt');
-	if (fichier_lect > task.memmaxi ){
-			SARAH.speak("Mémoire limit a "+resulat);
-			}
-	  //  
+	  fichier_lect = readfile(urlfile+"mem.json");
+		var info_mem = JSON.parse(fichier_lect);
+				if (info_mem.Memoire.RamUtilisePourcent >= task.memmaxi ){
+						SARAH.speak("Mémoire limit "+info_mem.Memoire.RamUtilisePourcent);
+				}		
+	 // fin lecture JSON
+	
 },3000);
-	// =========================================================================	
-	 fichier_lect  = urlfile+"cpu.vbs";
-    var child = exec(fichier_lect, function (error, stdout, stderr) {
+	// =============================================================
+	// Lancement des fichier .vbs
+	var fichier_run  =urlfile+"\cpu.vbs";
+	var child = exec(fichier_run, function (error, stdout, stderr) {
 			if (error !== null) {
-			   		console.log('cpu:' +error);
-					}
+			   		console.log('run cpu:' +error);
+					} else {
+							console.log('run cpu : [Ok] ');
+						   }			
 			}); 
-	// =========================================================================	
-	fichier_lect  = urlfile+"memoire.vbs";
-    var child = exec(fichier_lect, function (error, stdout, stderr) {
+	 //============================================================	
+	fichier_run  = urlfile+"\memoire.vbs";
+	var child = exec(fichier_run, function (error, stdout, stderr) {
 			if (error !== null) {
-			   		console.log('cpu:' +error);
-					}
+			   		console.log('run memoire :' +error);
+					} else {
+							console.log('run memoire : [Ok] ');
+						   }			
+			}); 		
+	//==============================================================		
+	fichier_run  = urlfile+"\disk.vbs";
+	var child = exec(fichier_run, function (error, stdout, stderr) {
+			if (error !== null) {
+			   		console.log('run disk :' +error);
+					} else {
+							console.log('run disk : [Ok] ');
+						   }			
 			}); 
-	// =========================================================================	
-	fichier_lect  = urlfile+"disk.vbs";
-    var child = exec(fichier_lect, function (error, stdout, stderr) {
-			if (error !== null) {
-			   		console.log('cpu:' +error);
-					}
-			}); 			
+    
 // -------------------------------------------
 // FIN CRON
 // -------------------------------------------
-   console.log('cpu: info');
+console.log(fichier_run);
+   console.log('sysinfo: Go');
     }
-
+// ------------------------------------------
+//  PLUGIN MODULES
+// ------------------------------------------	
+//********************************************************************************************************************** 	
 exports.action = function(data, callback, config, SARAH){
   // config module
   config = config.modules.sysinfo;
- // ==================================================================================================================== 		
- var retour_file
+ // ============================== 
+ var message ="Pas Ordre";
+ // ===== JSON CPU 
+ var retour_file = readfile(urlfile+"cpu.json");
+ var info_cpu = JSON.parse(retour_file);
+ // ===== JSON DISK
+ retour_file = readfile(urlfile+"disk.json");
+    var info_disk = JSON.parse(retour_file);
+ // ===== JSON MEMOIRE
+ retour_file = readfile(urlfile+"mem.json");
+      var info_mem = JSON.parse(retour_file);
+ // ===== FIN JSON 	
   switch(data.key)
   		{
+		case "HELLO":
+		// Dire Hello pour verification et débug
+		 message =" Hello Toi.";
+				
+		break;
+		case "MENRAM1":
+		// capacité de la  barette mémoire
+		 message=" la premier barette de ram et de "+info_mem.Memoire.DIMM1+".";
+				
+		break;
+		
+		case "MENRAM2":
+		// capacité de la  barette mémoire
+		 message=" la deuxiéme barette de ram et de "+info_mem.Memoire.DIMM2+".";
+				
+		break;
+		
+		case "MENRAMT":
+		// Nombre de barette mémoire
+		message=" J'ai "+info_mem.Memoire.NbBarrette+" barette de mémoire.";
+				
+		break;
+		
+		case "MONIP":
+		// Adresse IP
+				message="Mon adresse IP et le "+info_cpu.cpu.AddressIP+" ." ;
+				
+		break;
+		
 		case "MEM":
 		// Mémoire utilisé
-		retour_file = readfile(urlfile+"mem.txt");
-				SARAH.speak(" le poucentage et de "+retour_file+' de mémoire utilisé.' );
+		 message=" le pourcentage et de ma mémoire utilisé et de "+info_mem.Memoire.RamUtilisePourcent+" poursant soi "+info_mem.Memoire.RamUtilise+".";
 				
 		break;
 		
-		case "FREE":
-		// Mémoire utilisé
-		retour_file = readfile(urlfile+"diskl.txt");
-				SARAH.speak(" Escpace Total disponible sur les disque dur et de "+retour_file+".");
+		case "FREEC":
+		// Escpace dispo disk C
+		 message=" Escpace Total disponible sur le disque dur C et de "+info_disk.disk.TotalFreeC+".";
 				
 		break;
 		
-		case "DD":
-		// Mémoire utilisé
-		retour_file = readfile(urlfile+"diskt.txt");
-				SARAH.speak(" Escpace Total des disques dur et de "+retour_file+".");
+		case "DDC":
+		// Capacité disk C
+		 message=" Escpace Total du disques dur C et de "+info_disk.disk.TotalSizeC+".";
 				
 		break;
 		
 		case "CPU":
-		// Mémoire utilisé
-		retour_file = readfile(urlfile+"cpus.txt");
-				SARAH.speak(" La charge CPU et de "+retour_file+".");
+		// Charge CPU
+		message=" Ma charge CPU et de "+info_cpu.cpu.LoadPercentage+". poursant";
 				
 		break;
 		
 		case "TCPU":
-		// Mémoire utilisé
-		retour_file = readfile(urlfile+"cput.txt");
-		console.log('cpu:' +retour_etat+'<');
-				if (!retour_file){
-				             SARAH.speak(" La Température CPU et de "+retour_file);
+		// Température CPU
+				if (!info_cpu.cpu.Temp_CPU){
+				             message=" La Température CPU et de "+info_cpu.cpu.Temp_CPU;
 									} else {
-									        SARAH.speak("Désolé cette information n'est pas disponible sur ma machine");
+									         message=" Désolé cette information n'est pas disponible sur ma machine";
 											}
 		break;
 		
 		case "SRV":
-		// Mémoire utilisé
-		retour_file = readfile(urlfile+"servicenb.txt");
-				SARAH.speak("Il y a "+retour_file+", programme et service démarrer");
+		// Nombre de service et programme
+		message="J'ai "+info_mem.Memoire.ServiceStart+", programme et service démarrer";
 		break;
 		
 		case "NOM":
-		// nom du cpu
-		retour_file = readfile(urlfile+"cpun.txt");
-				SARAH.speak("le nom de mon CPU et "+retour_file+".");
+		// Nom du cpu
+		message="le nom de mon CPU et "+info_cpu.cpu.Name+".";
 		break;
 		
 		}
-callback({});
+		// fin on fais parle Sarah
+callback({'tts': message });
 }
- //**********************************************************************************************************************
-
+//  **********************************************************************************************************************
 //  ============================= subroutine lecture fichier
 var readfile = function(fileread){
 		var fs = require('fs');
