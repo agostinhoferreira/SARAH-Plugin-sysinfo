@@ -1,6 +1,6 @@
 SARAH-Plugin-sysinfo
 ====================
-Version 1.00002
+Version 1.03
 
 Auteur: Ferreira Agostinho
 Demandeur:Gui Arnaud
@@ -9,16 +9,31 @@ Dec 2013
 Bonjour
 =====================
 
-Le Plugin Sysinfo et une version Béta a tester sans modération.
+Le Plugin Sysinfo et une version Béta+ a tester.
 
-j'ai corrigé le bug du disk.vbs, non utilisé.
+La grammaire et provisoire, elle n'est pas finie.
 
-Je vais encore apporter quelque modification dans le code du sysinfo.js, pour qu'il soie plus visible et mieux codé.
+Cette version 1.03 génére des fichiers .json
 
-Bug Corriger
-=====================
-La taille de la mémoire utilisé
-L'url des fichiers et géré par le fichier .js
+La température CPU ne sera pas possible pour le l'instant.
+
+Commandes Vocale
+===============================================
+  Mémoire utilisé      
+  Escpace Libre  C 
+  Escpace Disponible C 
+  Total Disque  C      
+	  
+  Charge CPU  	      
+  Nom CPU           
+	  
+  Ton IP               
+  Nombre de service    
+	  
+  Nombre de barette mémoire 
+  Capacité de la barrette 1 
+  Capacité de la barrette 2 
+
 
 Amélioration prévu dans le futur 
 =====================
