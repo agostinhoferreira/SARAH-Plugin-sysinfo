@@ -1,43 +1,30 @@
 SARAH-Plugin-sysinfo
 ====================
-Version 1.03
+Version 1.31
 
 Auteur: Ferreira Agostinho
 Demandeur:Gui Arnaud
-Dec 2013
+Jan 2014
 
 Bonjour
 =====================
 
-Le Plugin Sysinfo et une version Béta+ a tester.
+Le Plugin Sysinfo version 1.31.
 
-La grammaire et provisoire, elle n'est pas finie.
+j'ai corrigé le bug du disk.vbs, non utilisé.
 
-Cette version 1.03 génére des fichiers .json
+Je vais encore apporter quelque modification dans le code du sysinfo.js, pour qu'il soie plus visible et mieux codé.
 
-La température CPU ne sera pas possible pour le l'instant.
-
-Commandes Vocale
-===============================================
-  Mémoire utilisé      
-  Escpace Libre  C 
-  Escpace Disponible C 
-  Total Disque  C      
-	  
-  Charge CPU  	      
-  Nom CPU           
-	  
-  Ton IP               
-  Nombre de service    
-	  
-  Nombre de barette mémoire 
-  Capacité de la barrette 1 
-  Capacité de la barrette 2 
-
-
-Amélioration prévu dans le futur 
+Bug Corriger
 =====================
-Un seul fichier .vbs qui génére un fichier JSON de l'état de la machine.
+La taille de la mémoire utilisé
+L'url des fichiers et géré par le fichier .js
+
+Amélioration.
+=====================
+Un dossier pour Vbs
+Un dossier pour le json
+Un dossier pour les images.
 
 Amicalement votre
 Mr Ferreira

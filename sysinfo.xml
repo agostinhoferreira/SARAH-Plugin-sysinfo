@@ -5,22 +5,28 @@
     
     <item>SARAH</item>
     <one-of>
-	  <item>Hello                <tag>out.action.key="HELLO";</tag></item>
-	  <item>Mémoire utilisé      <tag>out.action.key="MEM";</tag></item>
-	  <item>Escpace Libre  C <tag>out.action.key="FREEC";</tag></item>
-	  <item>Escpace Disponible C <tag>out.action.key="FREEC";</tag></item>
-	  <item>Total Disque  C      <tag>out.action.key="DDC";</tag></item>
+	  <item>Ta mémoire utilisé      <tag>out.action.key="MEM";</tag></item>
+	  <item>Ton escpace libre  C 	<tag>out.action.key="FREEC";</tag></item>
+	  <item>Escpace Disponible C 	<tag>out.action.key="FREEC";</tag></item>
+	  <item>Total Disque  C      	<tag>out.action.key="DDC";</tag></item>
 	  
-	  <item>Charge CPU  	     <tag>out.action.key="CPU";</tag></item>
-	  <item>Température CPU      <tag>out.action.key="TCPU";</tag></item>
-	  <item>Nom CPU              <tag>out.action.key="NOM";</tag></item>
+	  <item>Ta charge CPU  	     	<tag>out.action.key="CPU";</tag></item>
+	  <item>Ta température CPU      <tag>out.action.key="TCPU";</tag></item>
+	  <item>Le nom de ton CPU       <tag>out.action.key="NOM";</tag></item>
 	  
-	  <item>Ton IP               <tag>out.action.key="MONIP";</tag></item>
-	  <item>Nombre de service    <tag>out.action.key="SRV";</tag></item>
+	  <item>Ton IP               	<tag>out.action.key="MONIP";</tag></item>
+	  <item>Ton adresse IP       	<tag>out.action.key="MONIP";</tag></item>
+	  <item>Nombre de service    	<tag>out.action.key="SRV";</tag></item>
 	  
 	  <item>Nombre de barette mémoire <tag>out.action.key="MENRAMT";</tag></item>
 	  <item>Capacité de la barrette 1 <tag>out.action.key="MENRAM1";</tag></item>
 	  <item>Capacité de la barrette 2 <tag>out.action.key="MENRAM2";</tag></item>
+	  <item>Capacité de la barrette 3 <tag>out.action.key="MENRAM3";</tag></item>
+	  <item>Capacité de la barrette 4 <tag>out.action.key="MENRAM4";</tag></item>
+	  <item>Capacité de la barrette 5 <tag>out.action.key="MENRAM5";</tag></item>
+	  <item>Capacité de la barrette 6 <tag>out.action.key="MENRAM6";</tag></item>
+	  <item>Capacité de la barrette 7 <tag>out.action.key="MENRAM7";</tag></item>
+	  <item>Capacité de la barrette 8 <tag>out.action.key="MENRAM8";</tag></item>
 	</one-of>
     <tag>out.action._attributes.uri="http://127.0.0.1:8080/sarah/sysinfo";</tag>
   </rule> 
