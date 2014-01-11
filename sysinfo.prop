@@ -1,7 +1,7 @@
 {
   "cron" : {
     "sysinfo" :   { 
-      "name"       : "sysinfo",
+      "name"       : "Sysinfo",
       "description": "Info systeme",
       "time"       : "0 */2 * * * *",
 	  "cpumaxi"    : "80",
@@ -11,8 +11,8 @@
   
   "modules" : { 
     "sysinfo" :   {
-      "description": "Info systeme",
-      "version"    : "1.0",
+      "description": "Info Systeme",
+      "version"    : "1.31",
 	  "time"       : "0 */2 * * * *",
 	  "cpumaxi"    : "80",
 	  "memmaxi"    : "80"
